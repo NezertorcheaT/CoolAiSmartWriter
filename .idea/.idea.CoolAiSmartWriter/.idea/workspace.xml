@@ -10,7 +10,17 @@
   <component name="ChangeListManager">
     <list default="true" id="944c3f64-3200-43e1-b621-6e8cd2bac1f7" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CoolAiSmartWriter/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CoolAiSmartWriter/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CoolAiSmartWriter/.idea/dataSources/4074c892-796a-4c6f-aeae-fe03189be0a7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CoolAiSmartWriter/.idea/dataSources/4074c892-796a-4c6f-aeae-fe03189be0a7/storage_v2/_src_/schema/main.uQUzAA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CoolAiSmartWriter/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CoolAiSmartWriter/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CoolAiSmartWriter/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CoolAiSmartWriter/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CoolAiSmartWriter/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/CoolAiSmartWriter.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CoolAiSmartWriter.sln.DotSettings.user" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Core/Areas/Identity/Pages/_ViewStart.cshtml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Core/Controllers/HomeController.cs" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Core/Core.csproj" afterDir="false" />
@@ -109,6 +119,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fb30046922fa42d48db089b2878b2e163b908/f7/7b9d3299/RazorPage`1.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 0
@@ -173,7 +186,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1745009631936</updated>
-      <workItem from="1745009633717" duration="706000" />
+      <workItem from="1745009633717" duration="1124000" />
     </task>
     <servers />
   </component>
