@@ -1,0 +1,9 @@
+﻿@model AiViewModel
+@{
+    ViewData["title"] = "AI";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h2>title</h2>
+<code>@(await Model.OutputPrompt)</code>
+<a class="nav-link text-dark" asp-area="" asp-controller="Ai" asp-action="TextCreation">Texter</a>
