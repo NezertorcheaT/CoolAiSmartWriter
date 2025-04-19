@@ -30,7 +30,6 @@ internal class YandexContext : IDisposable
             HttpRequestMessage request =
                 new HttpRequestMessage(HttpMethod.Post, "https://iam.api.cloud.yandex.net/iam/v1/tokens");
             var content = $"{{\"yandexPassportOauthToken\":\"{OAuthToken}\"}}";
-            Console.WriteLine(content);
             request.Content = new StringContent(content);
             request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
@@ -42,7 +41,6 @@ internal class YandexContext : IDisposable
             var parsed = JsonNode.Parse(responseText);
             if (parsed is not null)
                 responseText = (parsed["iamToken"] ?? responseText).ToString();
-            Console.WriteLine(responseText);
             IamToken = new IamToken(responseText);
             if (_isDisposed) break;
             Thread.Sleep(sleepTime);

@@ -1,9 +1,121 @@
-﻿@model AiViewModel
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartWritter</title>
+    <link rel="stylesheet" href="wwwroot/front/main.css"/>
+    <link rel="stylesheet" href="wwwroot/front/button.css"/>
+    <link rel="stylesheet" href="wwwroot/front/fonts.css"/>
+</head>
+<body>
+
+@model AiViewModel
 @{
     ViewData["title"] = "AI";
-    Layout = "/Views/Shared/_Layout.cshtml";
+    //Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
 <code>@(await Model.OutputPrompt)</code>
-<a class="nav-link text-dark" asp-area="" asp-controller="Ai" asp-action="TextCreation">Texter</a>
+
+<header>
+    <section class="navigation">
+        <h1>SmartWritter</h1>
+        <nav>
+            <a href="#us">О нас</a>
+            <a href="#">FAQ</a>
+            <a href="#ai">AI-инструмент</a>
+        </nav>
+    </section>
+    <section class="header_desc">
+        <div class="header_title">
+            <h1>Books That Write Themselves</h1>
+            <p>Сервис SmartWriter использует искусственный интеллект для генерации уникальных книг по вашему запросу.
+                Просто укажите тему, жанр и пожелания – наш алгоритм напишет полноценное произведение: от структуры до
+                последней главы.</p>
+            <button class="secondary">Узнать больше</button>
+        </div>
+    </section>
+</header>
+<main>
+    <section id="us" class="about_us">
+        <div class="about_us_desc">
+            <h1>О нас</h1>
+            <p>SmartWriter — это инновационный сервис, который превращает ваши идеи в готовые книги с помощью
+                искусственного интеллекта. Наша миссия — сделать процесс создания книг доступным каждому.</p>
+            <p>С помощью нашего сервиса вы можете:</p>
+        </div>
+        <div class="slider">
+            <div class="stroke_1">
+                <div class="slide">
+                    <h1>Иллюстрировать литературные произведения</h1></div>
+                <div class="slide">
+                    <h1>Создавать литературные произведения</h1></div>
+            </div>
+            <div class="stroke_2">
+                <div class="slide">
+                    <h1>Создавать произведения на русском с использованием иностранного</h1></div>
+            </div>
+        </div>
+    </section>
+    <section id="ai" class="ai_instrument">
+        <div class="ai_instrument_desc">
+            <h1>AI-инструмент</h1>
+            <p>Создание иллюстрации для литературного произведения</p>
+        </div>
+        <form id="pdfForm">
+            <textarea id="textInput" placeholder="Введите текст"></textarea>
+            <div>
+                <p>Количество изображений:</p>
+                <input type="number" id="imageCount" min="1" max="5" value="2">
+            </div>
+            <button class="primary" type="submit">Сгенерировать PDF</button>
+        </form>
+
+        <a id="downloadLink" style="display: none;">Скачать PDF</a>
+    </section>
+</main>
+<footer>
+    <p>Created by team “Фиксики”</p>
+</footer>
+<script>
+    document.getElementById("pdfForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const text = document.getElementById("textInput").value;
+        const imageCount = document.getElementById("imageCount").value;
+        const submitBtn = document.querySelector("#pdfForm button[type='submit']");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Генерация...";
+
+        try {
+            const response = await fetch("/api/pdf/generate", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    text: text,
+                    prompts: Array(parseInt(imageCount)).fill(text)
+                })
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const link = document.getElementById("downloadLink");
+                link.href = url;
+                link.download = "generated.pdf";
+                link.style.display = "block";
+                link.click();
+            } else {
+                alert("Ошибка при генерации PDF");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Произошла ошибка при отправке запроса");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Сгенерировать PDF";
+        }
+    });
+</script>
+</body>
+</html>

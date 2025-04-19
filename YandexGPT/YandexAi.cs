@@ -22,7 +22,6 @@ public class YandexAi : IDisposable
         while (_context.IamToken is null) await Task.Delay(25);
 
         var promptText = _settings.Build(_context.DirectoryId);
-        Console.WriteLine(promptText);
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post,
             "https://llm.api.cloud.yandex.net/foundationModels/v1/completion");
@@ -35,8 +34,7 @@ public class YandexAi : IDisposable
 
         HttpResponseMessage response = await _client.SendAsync(request);
         response.EnsureSuccessStatusCode();
-        string responseBody = await response.Content.ReadAsStringAsync();
-        return responseBody;
+        return await response.Content.ReadAsStringAsync();
     }
 
     public void Dispose()
