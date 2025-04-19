@@ -26,6 +26,8 @@ body {
 
 /* Навигация */
 .navigation {
+    position: fixed;
+    width: 100%;
     background: var(--white-color);
     height: 70px;
     display: flex;
