@@ -1,23 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@model AiViewModel
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartWritter</title>
-    <link rel="stylesheet" href="wwwroot/front/main.css"/>
-    <link rel="stylesheet" href="wwwroot/front/button.css"/>
-    <link rel="stylesheet" href="wwwroot/front/fonts.css"/>
+    <link rel="stylesheet" href="~/front/style/main.css"/>
+    <link rel="stylesheet" href="~/front/style/button.css"/>
+    <link rel="stylesheet" href="~/front/style/fonts.css"/>
 </head>
 <body>
-
-@model AiViewModel
-@{
-    ViewData["title"] = "AI";
-    //Layout = "/Views/Shared/_Layout.cshtml";
-}
-
-<code>@(await Model.OutputPrompt)</code>
-
 <header>
     <section class="navigation">
         <h1>SmartWritter</h1>
@@ -40,6 +32,7 @@
 <main>
     <section id="us" class="about_us">
         <div class="about_us_desc">
+            <code>@(await Model.OutputPrompt)</code>
             <h1>О нас</h1>
             <p>SmartWriter — это инновационный сервис, который превращает ваши идеи в готовые книги с помощью
                 искусственного интеллекта. Наша миссия — сделать процесс создания книг доступным каждому.</p>
