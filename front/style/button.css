@@ -1,0 +1,33 @@
+.primary, .secondary{
+    font-family: 'Opensans';
+    font-size: 25px;
+    border-radius: 40px;
+    padding: 20px 64px;
+    color: var(--white-color);
+    cursor:pointer;
+}
+
+
+.primary{
+    background: var( --blue-color);
+    border: 1px solid var(--blue-color);
+}
+
+.primary:hover{
+    border: 1px solid var(--second-blue);
+    background: var(--second-blue);
+}
+
+
+
+.secondary{
+    border: 1px solid var(--white-color);
+    background: transparent;
+    color: var(--white-color);
+    
+}
+
+.secondary:hover{
+    border: 1px solid var(--second-white);
+    color:var(--second-white);
+}

@@ -1,0 +1,211 @@
+
+/* Базовые сбросы и переменные */
+:root {
+    --blue-color: #01245F;
+    --white-color: #F8F4E6;
+    --second-blue: #01173d;
+    --second-white: #f6ecc9;
+}
+
+body, a, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: 'Dayssans';
+}
+
+p, a, #textInput, #imageCount, footer {
+    font-family: 'Opensans';
+}
+
+body {
+    background: var(--white-color);
+}
+
+/* Навигация */
+.navigation {
+    background: var(--white-color);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: var(--blue-color);
+    margin-right: 135px;
+    font-size: 20px;
+    cursor:pointer;
+}
+
+.navigation a:hover {
+    color: var(--second-blue);
+}
+
+.navigation a:last-child, .stroke_1 div:last-child {
+    margin-right: 0;
+}
+
+.navigation h1 {
+    margin-right: 190px;
+    color: var(--blue-color);
+}
+.header_title{
+    background: var(--blue-color);
+    color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 221px;
+    padding-bottom: 175px;
+}
+
+.header_title h1{
+    font-size: 50px;
+}
+
+.header_title p{
+    font-size: 25px;
+    margin-top: 90px;
+    width: 1121px;
+    text-align: center;
+    line-height: 45px;
+}
+
+.header_title button{
+    margin-top: 90px;
+    align-self: flex-end;
+    margin-right: 160px;
+}
+
+/* Общие стили для секций и формы */
+.about_us, .ai_instrument, #pdfForm, .slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about_us, .ai_instrument {
+    margin: 130px 0 190px;
+    color: var(--blue-color);
+    justify-content: center;
+}
+
+.about_us_desc, .ai_instrument_desc {
+    width: 1121px;
+}
+
+.about_us_desc h1, .ai_instrument_desc h1 {
+    font-size: 30px;
+}
+
+.about_us_desc p, .ai_instrument_desc p, .header_title p {
+    font-size: 25px;
+    line-height: 45px;
+    margin: 55px 0;
+}
+
+.header_title p {
+    width: 1121px;
+    text-align: center;
+    margin-top: 90px;
+}
+
+/* Слайдер */
+.slide {
+    height: 300px;
+    width: 456px;
+    background: var(--blue-color);
+    color: var(--white-color);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor:pointer;
+}
+
+.slide:hover{
+    background: transparent;
+    color:var(--second-blue);
+    border: 1px solid var(--second-blue);
+}
+
+.slide h1 {
+    width: 70%;
+    text-align: center;
+}
+
+.stroke_1, #pdfForm div {
+    display: flex;
+}
+
+.stroke_1 div {
+    margin-right: 10px;
+}
+
+.stroke_2 div {
+    margin-top: 10px;
+    width: 912px;
+}
+
+/* Форма */
+#textInput, #imageCount {
+    color: var(--blue-color);
+    border: 1px solid var(--blue-color);
+    border-radius: 10px;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+#textInput {
+    width: 1150px;
+    height: 200px;
+    overflow: auto;
+    resize: none;
+    padding: 15px 20px;
+}
+
+#textInput:focus {
+    border-color: var(--second-blue);
+}
+
+#textInput::placeholder {
+    color: var(--blue-color);
+}
+
+#imageCount {
+    padding: 10px;
+}
+
+#pdfForm {
+    justify-content: center;
+}
+
+#pdfForm button {
+    margin-top: 20px;
+}
+
+#pdfForm div {
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+#pdfForm div p {
+    margin-right: 20px;
+}
+
+/* Подвал */
+footer {
+    background: var(--blue-color);
+    color: var(--white-color);
+    text-align: center;
+    font-size: 15px;
+    padding: 20px 0;
+}
