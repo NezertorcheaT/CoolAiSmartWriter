@@ -1,0 +1,38 @@
+.primary, .secondary, .registration_button{
+    font-family: 'Opensans';
+    font-size: 15px;
+    border-radius: 20px;
+    color: var(--white-color);
+    cursor:pointer;
+}
+
+.primary, .secondary{
+    padding: 20px 64px;
+}
+.primary, .registration_button{
+    background: var( --blue-color);
+    border: 1px solid var(--blue-color);
+}
+
+.primary:hover{
+    border: 1px solid var(--second-blue);
+    background: var(--second-blue);
+}
+
+
+
+.secondary{
+    border: 1px solid var(--white-color);
+    background: transparent;
+    color: var(--white-color);
+    
+}
+
+.secondary:hover{
+    border: 1px solid var(--second-white);
+    color:var(--second-white);
+}
+
+.registration_button{
+    padding:10px 120px;
+}
