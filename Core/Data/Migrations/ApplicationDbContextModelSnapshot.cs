@@ -66,6 +66,33 @@ namespace Core.Data.Migrations
                 b.ToTable("AspNetRoleClaims");
             });
 
+            modelBuilder.Entity("Yandex.User.Content", b =>
+            {
+                b.Property<string>("BookId")
+                    .HasColumnType("TEXT");
+                
+                b.HasKey("BookId");
+                
+                b.ToTable("YandexBooks");
+            });
+            
+            modelBuilder.Entity("Yandex.User.Content", b =>
+            {
+                b.Property<string>("Id")
+                    .HasColumnType("TEXT");
+                
+                b.Property<string>("BookId")
+                    .HasColumnType("TEXT");
+
+                b.HasIndex("BookId")
+                    .IsUnique();
+                
+                b.HasIndex("Id")
+                    .IsUnique();
+                
+                b.ToTable("YandexUsersBook");
+            });
+            
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
             {
                 b.Property<string>("Id")

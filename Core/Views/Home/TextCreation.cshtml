@@ -17,6 +17,7 @@
             <a href="#us">О нас</a>
             <a href="#">FAQ</a>
             <a href="#ai">AI-инструмент</a>
+            <a href="log.html">Личный кабинет</a>
         </nav>
     </section>
     <section class="header_desc">
@@ -32,7 +33,6 @@
 <main>
     <section id="us" class="about_us">
         <div class="about_us_desc">
-            <code>@(await Model.OutputPrompt)</code>
             <h1>О нас</h1>
             <p>SmartWriter — это инновационный сервис, который превращает ваши идеи в готовые книги с помощью
                 искусственного интеллекта. Наша миссия — сделать процесс создания книг доступным каждому.</p>
@@ -40,14 +40,11 @@
         </div>
         <div class="slider">
             <div class="stroke_1">
-                <div class="slide">
-                    <h1>Иллюстрировать литературные произведения</h1></div>
-                <div class="slide">
-                    <h1>Создавать литературные произведения</h1></div>
+                <div class="slide"><h1>Иллюстрировать литературные произведения</h1></div>
+                <div class="slide"><h1>Создавать литературные произведения</h1></div>
             </div>
             <div class="stroke_2">
-                <div class="slide">
-                    <h1>Создавать произведения на русском с использованием иностранного</h1></div>
+                <div class="slide"><h1>Создавать произведения на русском с использованием иностранного</h1></div>
             </div>
         </div>
     </section>
@@ -64,51 +61,27 @@
             </div>
             <button class="primary" type="submit">Сгенерировать PDF</button>
         </form>
-
         <a id="downloadLink" style="display: none;">Скачать PDF</a>
+        <div class="ai_instrument_desc">
+            <p>Создание литературного произведения</p>
+        </div>
+
+        @using (Html.BeginForm("GenerateFile", "Home", FormMethod.Post, new { id = "creatingbook", }))
+        {
+            @Html.AntiForgeryToken()
+
+            <textarea name="userContent"
+                      id="bookInput"
+                      placeholder="Введите текст"
+                      class="form-control"
+                      content=@(TempData["Error"] != null ? TempData["Error"] : "")
+            ></textarea>
+            <button class="primary" type="submit">Сгенерировать PDF</button>
+        }
     </section>
 </main>
 <footer>
     <p>Created by team “Фиксики”</p>
 </footer>
-<script>
-    document.getElementById("pdfForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const text = document.getElementById("textInput").value;
-        const imageCount = document.getElementById("imageCount").value;
-        const submitBtn = document.querySelector("#pdfForm button[type='submit']");
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Генерация...";
-
-        try {
-            const response = await fetch("/api/pdf/generate", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    text: text,
-                    prompts: Array(parseInt(imageCount)).fill(text)
-                })
-            });
-
-            if (response.ok) {
-                const blob = await response.blob();
-                const url = URL.createObjectURL(blob);
-                const link = document.getElementById("downloadLink");
-                link.href = url;
-                link.download = "generated.pdf";
-                link.style.display = "block";
-                link.click();
-            } else {
-                alert("Ошибка при генерации PDF");
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Произошла ошибка при отправке запроса");
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Сгенерировать PDF";
-        }
-    });
-</script>
 </body>
 </html>

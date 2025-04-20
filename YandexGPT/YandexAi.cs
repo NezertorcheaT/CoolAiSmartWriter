@@ -1,16 +1,17 @@
 ﻿using System.Net.Http.Headers;
+using System.Text.Json.Nodes;
 
 namespace YandexGPT;
 
 public class YandexAi : IDisposable
 {
-    private readonly AiSettings _settings;
+    public AiSettings Settings { get; set; }
     private YandexContext _context;
     private readonly HttpClient _client = new();
 
     public YandexAi(AiSettings settings)
     {
-        _settings = settings;
+        Settings = settings;
         _context = new YandexContext(
             new OAuthToken(Environment.GetEnvironmentVariable("OAUTH_TOKEN")!),
             new YDirectoryId(Environment.GetEnvironmentVariable("DIRECTORY_ID")!)
@@ -21,7 +22,7 @@ public class YandexAi : IDisposable
     {
         while (_context.IamToken is null) await Task.Delay(25);
 
-        var promptText = _settings.Build(_context.DirectoryId);
+        var promptText = Settings.Build(_context.DirectoryId);
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post,
             "https://llm.api.cloud.yandex.net/foundationModels/v1/completion");
@@ -34,7 +35,9 @@ public class YandexAi : IDisposable
 
         HttpResponseMessage response = await _client.SendAsync(request);
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync();
+        return JsonNode.Parse(await response.Content.ReadAsStringAsync())?["result"]?["alternatives"]?.AsArray()
+            .LastOrDefault()?["message"]?["text"]
+            ?.ToString() ?? string.Empty;
     }
 
     public void Dispose()

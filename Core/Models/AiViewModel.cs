@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using YandexGPT;
 
 namespace Core.Models;
 
-public class AiViewModel(Task<string> outputPrompt)
+public class AiViewModel(YandexAi yandexAi)
 {
-    [Required] public Task<string> OutputPrompt { get; init; } = outputPrompt;
+    [Required] public YandexAi YandexAi { get; init; } = yandexAi;
+    public string Description { get; set; } = string.Empty;
 }

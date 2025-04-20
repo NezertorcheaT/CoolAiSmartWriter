@@ -52,9 +52,21 @@ public class AiSettings
         return this;
     }
 
+    public AiSettings SetMessage(int index, Message message)
+    {
+        _messages[index] = message;
+        return this;
+    }
+
     public AiSettings Temperature(float s)
     {
         _temperature = s;
+        return this;
+    }
+
+    public AiSettings IsStreaming(bool s)
+    {
+        _stream = s;
         return this;
     }
 
@@ -90,11 +102,5 @@ public class AiSettings
         sb.Append("] }");
 
         return sb.ToString();
-    }
-
-    public AiSettings IsStreaming(bool s)
-    {
-        _stream = s;
-        return this;
     }
 }
