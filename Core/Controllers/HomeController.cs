@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using Core.Models;
+using Microsoft.AspNetCore.Http.Timeouts;
 using YandexGPT;
 
 namespace Core.Controllers;
@@ -38,13 +39,14 @@ public class HomeController : Controller
         _aiViewModel = new AiViewModel(_yContext);
     }
 
-    public IActionResult Index() => View();
-    public IActionResult Privacy() => View();
+    //public IActionResult Index() => View();
+    //public IActionResult Privacy() => View();
 
     public IActionResult TextCreation() => View(_aiViewModel);
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [RequestTimeout(60000)]
     public async Task<IActionResult> GenerateText(string userContent)
     {
         if (string.IsNullOrEmpty(userContent))
