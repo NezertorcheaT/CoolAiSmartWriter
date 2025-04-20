@@ -53,35 +53,119 @@
             <h1>AI-инструмент</h1>
             <p>Создание иллюстрации для литературного произведения</p>
         </div>
-        <form id="pdfForm">
-            <textarea id="textInput" placeholder="Введите текст"></textarea>
+
+        @using (Html.BeginForm("GenerateImages", "Home", FormMethod.Post, new { id = "pdfForm", }))
+        {
+            @Html.AntiForgeryToken()
+
+            <textarea name="userContent"
+                      id="textInput"
+                      placeholder="Введите текст произведения"
+                      class="form-control"
+                      content=@(TempData["Error"] != null ? TempData["Error"] : "")
+            ></textarea>
+
             <div>
                 <p>Количество изображений:</p>
-                <input type="number" id="imageCount" min="1" max="5" value="2">
+                <input type="number" name="count" id="imageCount" min="1" max="8" value="2">
             </div>
-            <button class="primary" type="submit">Сгенерировать PDF</button>
-        </form>
-        <a id="downloadLink" style="display: none;">Скачать PDF</a>
+
+            <!-- Добавляем контейнер для статуса -->
+            <div id="progressStatus" style="display: none;">
+                <div class="spinner"></div>
+                <p>Генерация PDF... Осталось примерно: <span id="timeLeft">-</span> сек</p>
+            </div>
+
+            <button class="primary" type="submit" onclick="startGeneration()">Сгенерировать PDF</button>
+        }
+
         <div class="ai_instrument_desc">
             <p>Создание литературного произведения</p>
         </div>
 
-        @using (Html.BeginForm("GenerateFile", "Home", FormMethod.Post, new { id = "creatingbook", }))
+        @using (Html.BeginForm("GenerateText", "Home", FormMethod.Post, new { id = "creatingbook", }))
         {
             @Html.AntiForgeryToken()
 
             <textarea name="userContent"
                       id="bookInput"
-                      placeholder="Введите текст"
+                      placeholder="Введите план или описание"
                       class="form-control"
                       content=@(TempData["Error"] != null ? TempData["Error"] : "")
             ></textarea>
-            <button class="primary" type="submit">Сгенерировать PDF</button>
+            <button class="primary" type="submit">Сгенерировать текст</button>
         }
     </section>
 </main>
 <footer>
     <p>Created by team “Фиксики”</p>
 </footer>
+<script>
+    let timerId;
+    let pollInterval = 2000; // 2 секунды
+
+    async function startGeneration() {
+        const form = document.getElementById('pdfForm');
+        const statusDiv = document.getElementById('progressStatus');
+
+        // Показать индикатор загрузки
+        statusDiv.style.display = 'block';
+
+        try {
+            // Отправка формы через Fetch API
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'RequestVerificationToken':
+                    document.querySelector('input[name="__RequestVerificationToken"]').value
+                }
+            });
+
+            const result = await response.json();
+
+            if (result.taskId) {
+                // Начать опрос статуса задачи
+                pollTaskStatus(result.taskId);
+                startTimer();
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+            statusDiv.innerHTML = '<div class="error">Ошибка соединения</div>';
+        }
+    }
+
+    function pollTaskStatus(taskId) {
+        const checkStatus = async () => {
+            const response = await fetch(`/Home/CheckStatus?taskId=${taskId}`);
+            const status = await response.json();
+
+            if (status.isCompleted) {
+                clearInterval(timerId);
+                if (status.downloadUrl) {
+                    // Авто-скачивание файла
+                    const link = document.createElement('a');
+                    link.href = status.downloadUrl;
+                    link.click();
+                }
+            } else if (status.error) {
+                clearInterval(timerId);
+                showError(status.error);
+            }
+        };
+
+        // Опрашивать каждые 2 секунды
+        setInterval(checkStatus, pollInterval);
+    }
+
+    function startTimer() {
+        let seconds = 0;
+        timerId = setInterval(() => {
+            seconds += 2;
+            document.getElementById('timeLeft').textContent =
+                Math.max(0, 60 - seconds); // Примерное время
+        }, 2000);
+    }
+</script>
 </body>
 </html>
